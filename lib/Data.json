@@ -1,0 +1,30 @@
+{
+  "UserId": 0,
+  "FirstName": "Weng Kim",
+  "Course": "IB",
+  "SelfMotivation": [
+    "I want to be a Software Developer",
+    "Jiayous!",
+    "The soul of the sluggard craves and gets nothing, while the soul of the diligent is richly supplied."
+  ],
+  "Subjects": [
+    {
+      "Subject1": "Language&Literature",
+      "Subject2": "ComputerScience",
+      "Subject3": "Chemistry",
+      "Subject4": "Economics",
+      "Subject5": "ChineseB",
+      "Subject6": "Mathematics"
+    },
+    {
+      "Level1": "HL",
+      "Level2": "HL",
+      "Level3": "HL",
+      "Level4": "SL",
+      "Level5": "SL",
+      "Level6": "SL"
+
+    }
+
+  ]
+}
