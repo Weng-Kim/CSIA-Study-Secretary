@@ -5,13 +5,14 @@ import 'package:studysecretary_alpha/DatabaseHelper.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-
 class Calendar extends StatefulWidget {
+  const Calendar({super.key});
+
   @override
-  _CalendarScreenState createState() => _CalendarScreenState();
+  _CalendarState createState() => _CalendarState();
 }
 
-class _CalendarScreenState extends State<Calendar> {
+class _CalendarState extends State<Calendar> {
   final DatabaseHelper dbHelper = DatabaseHelper();
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
@@ -22,6 +23,7 @@ class _CalendarScreenState extends State<Calendar> {
   @override
   void initState() {
     super.initState();
+    tz.initializeTimeZones(); // Initialize timezone data
     _initializeNotifications();
     _loadExamDates();
   }
@@ -53,9 +55,12 @@ class _CalendarScreenState extends State<Calendar> {
       body,
       tzScheduledTime,
       notificationDetails,
-      androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents: DateTimeComponents.time, // Optional: for recurring notifications
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle, // Use the appropriate mode
     );
+
+
   }
 
   Future<void> _loadExamDates() async {
@@ -63,12 +68,17 @@ class _CalendarScreenState extends State<Calendar> {
     Map<DateTime, List<String>> events = {};
 
     for (var exam in exams) {
-      DateTime examDate = DateTime.parse(exam['examDate']);
-      String examName = exam['name'] ?? exam['examTypeName'];
-      if (events[examDate] == null) {
-        events[examDate] = [];
+      // Ensure examDate is in ISO-8601 format before parsing
+      try {
+        DateTime examDate = DateTime.parse(exam['examDate']);
+        String examName = exam['name'] ?? exam['examTypeName'];
+        if (events[examDate] == null) {
+          events[examDate] = [];
+        }
+        events[examDate]!.add(examName);
+      } catch (e) {
+        print('Error parsing date: ${exam['examDate']}');
       }
-      events[examDate]!.add(examName);
     }
 
     setState(() {
@@ -81,7 +91,7 @@ class _CalendarScreenState extends State<Calendar> {
   }
 
   void _addStudyReminder(DateTime day) async {
-    final reminderTime = day.subtract(Duration(hours: 1));
+    final reminderTime = day.subtract(const Duration(hours: 1));
     await _scheduleNotification(
       "Study Reminder",
       "Prepare for exams scheduled on ${day.toLocal()}",
@@ -97,7 +107,7 @@ class _CalendarScreenState extends State<Calendar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Calendar'),
+        title: const Text('Calendar'),
       ),
       body: Column(
         children: [
@@ -126,7 +136,7 @@ class _CalendarScreenState extends State<Calendar> {
             onPageChanged: (focusedDay) {
               _focusedDay = focusedDay;
             },
-            calendarStyle: CalendarStyle(
+            calendarStyle: const CalendarStyle(
               todayDecoration: BoxDecoration(
                 color: Colors.blue,
                 shape: BoxShape.circle,
@@ -148,7 +158,7 @@ class _CalendarScreenState extends State<Calendar> {
                 color: Colors.orange,
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              formatButtonTextStyle: TextStyle(
+              formatButtonTextStyle: const TextStyle(
                 color: Colors.white,
               ),
             ),
@@ -161,12 +171,12 @@ class _CalendarScreenState extends State<Calendar> {
                     title: Text(event),
                     subtitle: Text('Exam Date: ${_selectedDay!.toLocal()}'),
                     trailing: IconButton(
-                      icon: Icon(Icons.notifications),
+                      icon: const Icon(Icons.notifications),
                       onPressed: () => _addStudyReminder(_selectedDay!),
                     ),
                   )),
                 if (_selectedDay == null || _getEventsForDay(_selectedDay!).isEmpty)
-                  Center(child: Text('No events for the selected day')),
+                  const Center(child: Text('No events for the selected day')),
               ],
             ),
           ),

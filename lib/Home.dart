@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:studysecretary_alpha/PomodoroTimer.dart';
-import 'package:studysecretary_alpha/UserDataForm.dart';
 import 'package:studysecretary_alpha/ExamScheduleScreen.dart';
 import 'package:studysecretary_alpha/Calendar.dart';
+import 'package:studysecretary_alpha/Profile.dart';
+
+import 'Settings.dart';
 
 class Home extends StatelessWidget {
+  const Home({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: const Text('Home'),
         leading: Builder(
           builder: (context) {
             return IconButton(
-            icon: Icon(Icons.menu),
+            icon: const Icon(Icons.menu),
             onPressed: () {
               Scaffold.of(context).openDrawer();
             },
@@ -25,7 +29,7 @@ class Home extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.pink,
               ),
@@ -38,37 +42,37 @@ class Home extends StatelessWidget {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'),
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Home(),
+                    builder: (context) => const Home(),
                   ),
                 );
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              leading: Icon(Icons.account_circle),
-              title: Text('Profile'),
+              leading: const Icon(Icons.account_circle),
+              title: const Text('Profile'),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => UserDataForm(),
-                  ),
+                    MaterialPageRoute(builder: (context) => const Profile()),
                 );
                 Navigator.pop(context);
               },
             ),
             ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
               onTap: () {
-                // Handle navigation or action
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Settings()),
+                );                Navigator.pop(context);
               },
             ),
           ],
@@ -85,20 +89,20 @@ class Home extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PomodoroTimer()),
+                  MaterialPageRoute(builder: (context) => const PomodoroTimer()),
                 );
               },
-              child: Text('Study Now.'),
+              child: const Text('Study Now.'),
             ),
             const SizedBox(height: 10),
         ElevatedButton(
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Calendar()),
+              MaterialPageRoute(builder: (context) => const Calendar()),
             );
           },
-          child: Text('Calendar'),
+          child: const Text('Calendar'),
           ),
           const SizedBox(height: 10),
         ElevatedButton(
@@ -108,7 +112,7 @@ class Home extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => ExamScheduleScreen()),
              );
           },
-          child: Text('See your Subjects'),
+          child: const Text('See your Subjects'),
           ),
           const SizedBox(height: 10),
           ],

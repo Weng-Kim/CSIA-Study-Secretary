@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PomodoroTimer extends StatefulWidget {
+  const PomodoroTimer({super.key});
+
   @override
   _PomodoroTimerState createState() => _PomodoroTimerState();
 }
@@ -32,7 +34,7 @@ class _PomodoroTimerState extends State<PomodoroTimer> {
     });
     Future.doWhile(() async {
       if (isRunning && remainingTime > 0) {
-        await Future.delayed(Duration(seconds: 1));
+        await Future.delayed(const Duration(seconds: 1));
         setState(() {
           remainingTime--;
           updateTimerText();
@@ -79,7 +81,7 @@ class _PomodoroTimerState extends State<PomodoroTimer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pomodoro Timer'),
+        title: const Text('Pomodoro Timer'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -88,33 +90,33 @@ class _PomodoroTimerState extends State<PomodoroTimer> {
           children: [
             Text(
               isWorking ? 'Work Time' : 'Break Time',
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               timerText,
-              style: TextStyle(fontSize: 80, fontWeight: FontWeight.w600),
+              style: const TextStyle(fontSize: 80, fontWeight: FontWeight.w600),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
                   onPressed: isRunning ? null : startTimer,
-                  child: Text('Start'),
+                  child: const Text('Start'),
                 ),
                 ElevatedButton(
                   onPressed: isRunning ? stopTimer : null,
-                  child: Text('Stop'),
+                  child: const Text('Stop'),
                 ),
                 ElevatedButton(
                   onPressed: resetTimer,
-                  child: Text('Reset'),
+                  child: const Text('Reset'),
                 ),
               ],
             ),
-            SizedBox(height: 40),
-            Text('Break Duration:'),
+            const SizedBox(height: 40),
+            const Text('Break Duration:'),
             Slider(
               value: breakDuration.toDouble(),
               min: 1,
@@ -128,8 +130,8 @@ class _PomodoroTimerState extends State<PomodoroTimer> {
                 });
               },
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Work Duration:',
               style: TextStyle(fontSize: 16),
             ),

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:studysecretary_alpha/Home.dart';
 import 'package:studysecretary_alpha/UserDataForm.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart' as p;
 import 'package:studysecretary_alpha/DatabaseHelper.dart';
-import 'package:studysecretary_alpha/Calendar.dart';
 import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+
+final FlutterLocalNotificationsPlugin notificationsPlugin =
+FlutterLocalNotificationsPlugin();
 
 void main() {
-  // Initialize timezone data
   tz.initializeTimeZones();
   runApp(const MyApp());
 }
@@ -67,20 +67,20 @@ class _LoginPageState extends State<LoginPage> {
 
       if (dbPassword == inputPassword) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Login successful')),
+          const SnackBar(content: Text('Login successful')),
         );
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Home()),
+          MaterialPageRoute(builder: (context) => const Home()),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Invalid password')),
+          const SnackBar(content: Text('Invalid password')),
         );
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('User not found')),
+        const SnackBar(content: Text('User not found')),
       );
     }
   }
@@ -95,12 +95,12 @@ class _LoginPageState extends State<LoginPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text(
+            const Text(
               'Welcome to Study Secretary!',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Please enter your login credentials.',
               style: TextStyle(fontSize: 18),
             ),
@@ -129,14 +129,14 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => UserDataForm()),
+                  MaterialPageRoute(builder: (context) => const UserDataForm()),
                 );
                 print('Create Account button pressed');
               },
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50),
+                minimumSize: const Size(double.infinity, 50),
               ),
-              child: Text('Create Account'),
+              child: const Text('Create Account'),
             ),
             const SizedBox(width: 20),
             // Forgot Password button
@@ -145,9 +145,9 @@ class _LoginPageState extends State<LoginPage> {
                 print('Forgot Password button pressed');
               },
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 50),
+                minimumSize: const Size(double.infinity, 50),
               ),
-              child: Text('Forgot Password'),
+              child: const Text('Forgot Password'),
             ),
           ],
         ),

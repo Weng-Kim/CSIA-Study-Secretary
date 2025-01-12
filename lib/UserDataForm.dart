@@ -3,6 +3,8 @@ import 'package:studysecretary_alpha/Home.dart';
 import 'DatabaseHelper.dart'; // Import the database helper
 
 class UserDataForm extends StatelessWidget {
+  const UserDataForm({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -10,12 +12,14 @@ class UserDataForm extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: UserDataFormScreen(),
+      home: const UserDataFormScreen(),
     );
   }
 }
 
 class UserDataFormScreen extends StatefulWidget {
+  const UserDataFormScreen({super.key});
+
   @override
   _UserDataFormScreenState createState() => _UserDataFormScreenState();
 }
@@ -79,8 +83,8 @@ class _UserDataFormScreenState extends State<UserDataFormScreen> {
         goals: nonNullGoals,
       );
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('User data saved!')));
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('User data saved!')));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const Home()));
     }
   }
 
@@ -88,7 +92,7 @@ class _UserDataFormScreenState extends State<UserDataFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('User Data Form'),
+        title: const Text('User Data Form'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -100,7 +104,7 @@ class _UserDataFormScreenState extends State<UserDataFormScreen> {
                 // Username field
                 TextFormField(
                   controller: _usernameController,
-                  decoration: InputDecoration(labelText: 'Username'),
+                  decoration: const InputDecoration(labelText: 'Username'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter username';
@@ -111,7 +115,7 @@ class _UserDataFormScreenState extends State<UserDataFormScreen> {
                 // Password field
                 TextFormField(
                   controller: _passwordController,
-                  decoration: InputDecoration(labelText: 'Password'),
+                  decoration: const InputDecoration(labelText: 'Password'),
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -123,11 +127,11 @@ class _UserDataFormScreenState extends State<UserDataFormScreen> {
                 // First name field
                 TextFormField(
                   controller: _firstNameController,
-                  decoration: InputDecoration(labelText: 'First Name'),
+                  decoration: const InputDecoration(labelText: 'First Name'),
                 ),
                 // Course dropdown
                 DropdownButtonFormField<String>(
-                  decoration: InputDecoration(labelText: 'Course'),
+                  decoration: const InputDecoration(labelText: 'Course'),
                   value: selectedCourse,
                   items: courseOptions.map((course) => DropdownMenuItem(value: course, child: Text(course))).toList(),
                   onChanged: (value) => setState(() {
@@ -142,7 +146,7 @@ class _UserDataFormScreenState extends State<UserDataFormScreen> {
                 ),
                 // Exam Year dropdown
                 DropdownButtonFormField<int>(
-                  decoration: InputDecoration(labelText: 'Exam Year'),
+                  decoration: const InputDecoration(labelText: 'Exam Year'),
                   value: selectedExamYear,
                   items: examYearOptions.map((year) => DropdownMenuItem(value: year, child: Text(year.toString()))).toList(),
                   onChanged: (value) => setState(() {
@@ -174,7 +178,7 @@ class _UserDataFormScreenState extends State<UserDataFormScreen> {
                           },
                         ),
                       ),
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Expanded(
                         child: DropdownButtonFormField<String>(
                           decoration: InputDecoration(labelText: 'Level ${i + 1}'),
@@ -205,16 +209,16 @@ class _UserDataFormScreenState extends State<UserDataFormScreen> {
                     onChanged: (value) => goals[i] = value,
                   ),
                 // Submit button
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
                     _saveUserData();
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => Home()),
+                      MaterialPageRoute(builder: (context) => const Home()),
                     );
                   },
-                  child: Text('Submit and login'),
+                  child: const Text('Submit and login'),
                 ),
               ],
             ),
@@ -224,3 +228,5 @@ class _UserDataFormScreenState extends State<UserDataFormScreen> {
     );
   }
 }
+
+
